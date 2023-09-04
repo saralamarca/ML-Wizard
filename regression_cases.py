@@ -11,9 +11,9 @@ from joblib import dump
 
 
 def reg_ml(df, ml_type, target_col):
-    # If data is ready for the machine learning process and ML type is regressor
+    # If the dataset is ready for machine learning process and 
+    # ml_type == 'regressor' - Create X and y
     if ml_type == 'regressor':
-        # Create X and y
         X = df.drop(target_col, axis=1)
         y = df[target_col]
 
@@ -22,7 +22,7 @@ def reg_ml(df, ml_type, target_col):
             column_name = X.columns[0]
             X = X[column_name].values.reshape(-1, 1)
 
-        # Split data into train/test based on how many rows in dataset
+        # Split data into train and test sets based on how many rows in the dataset
         if len(X) < 1000:
             test_size = 0.3
         elif len(X) < 2000:
@@ -37,32 +37,32 @@ def reg_ml(df, ml_type, target_col):
         scaled_X_train = scaler.fit_transform(X_train)
         scaled_X_test = scaler.transform(X_test)
 
-        # Linear Regression
+        # Create a Linear Regression model
         lir_model = LinearRegression()
         lir_model.fit(scaled_X_train,y_train)
         lir_pred = lir_model.predict(scaled_X_test)
 
-        # Lasso
+        # Create a Lasso model
         lasso_model = Lasso()
         lasso_model.fit(scaled_X_train,y_train)
         lasso_pred = lasso_model.predict(scaled_X_test)
 
-        # Ridge
+        # Create a Ridge model
         ridge_model = Ridge()
         ridge_model.fit(scaled_X_train,y_train)
         ridge_pred = ridge_model.predict(scaled_X_test)
 
-        # Elastic Net
+        # Create a Elastic Net model
         elastic_model = ElasticNet()
         elastic_model.fit(scaled_X_train,y_train)
         elastic_pred = elastic_model.predict(scaled_X_test)
 
-        # SVR
+        # Create a SVR model
         svr_model = SVR()
         svr_model.fit(scaled_X_train,y_train)
         svr_pred = svr_model.predict(scaled_X_test)
 
-        # param_grid for each model
+        # Parameter grid to use for GridSearchCV for each model
         lir_param_grid = {'fit_intercept': [True, False],'copy_X': \
                 [True, False],'positive': [True, False]}
         lasso_param_grid = {'alpha': [0.1, 0.5, 1.0, 2.0]}
@@ -85,7 +85,7 @@ def reg_ml(df, ml_type, target_col):
         svr_grid = GridSearchCV(estimator=svr_model, \
                                 param_grid=svr_param_grid)
         
-        # fit and get best_params for each model
+        # Fit and get best parameters for each model
         lir_grid.fit(scaled_X_train,y_train)
         best_lir = [lir_grid.best_params_]
         lasso_grid.fit(scaled_X_train,y_train)
@@ -118,7 +118,7 @@ def reg_ml(df, ml_type, target_col):
         elastic_score = r2_score(y_test, elastic_pred)
         svr_score = r2_score(y_test, svr_pred)
         
-        # Report of each model
+        # Print best hyperparameters for each model
         print("\n\nBest hyperparameters for Linear Regression: ", best_lir), \
         print("Best hyperparameters for Lasso: ", best_lasso), \
         print("Best hyperparameters for Ridge: ", best_ridge), \
@@ -140,7 +140,7 @@ def reg_ml(df, ml_type, target_col):
         print("Score for ElasticNet model: ", elastic_score), \
         print("Score for SVR model: ", svr_score)
 
-        # Feedback/conclusion
+        # Print some feedback/conclusion
         scores = [lir_score, lasso_score, ridge_score, \
                                 elastic_score, svr_score]
         highest_score = max(scores)
