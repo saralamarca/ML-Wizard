@@ -10,6 +10,23 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from joblib import dump
 
 
+
+
+
+class RegressionCases:
+    def __init__(self, df, target_col) -> None:
+        self.df = df
+        self.target_col = target_col
+
+        # Create X and y
+        X = df.drop(target_col, axis=1)
+        y = df[target_col]
+
+        # If X is only 1 column - reshape
+        if len(X.columns) == 1:
+            column_name = X.columns[0]
+            X = X[column_name].values.reshape(-1, 1)
+
 def reg_ml(df, ml_type, target_col):
     # If the dataset is ready for machine learning process and 
     # ml_type == 'regressor' - Create X and y
