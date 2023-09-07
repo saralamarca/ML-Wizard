@@ -44,12 +44,6 @@ class ClassificationCases:
         if len(self.X.columns) == 1:
             column_name = self.X.columns[0]
             self.X = self.X[column_name].values.reshape(-1, 1)
-        
-        # Split data into training and testing sets
-        self.X_train, self.X_test, self.y_train, self.y_test = self.split_data()
-
-        # Scale the feature data
-        self.scaled_X_train, self.scaled_X_test = self.scale_data()
     
     def split_data(self):
         """
@@ -70,10 +64,10 @@ class ClassificationCases:
 
         # Use train_test_split to split the data into training and testing sets.
         # random_state=101 ensures reproducibility of the split.
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=test_size, random_state=101)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=test_size, random_state=101)
 
         # Return the split datasets as a tuple.
-        return train_test_split(self.X, self.y, test_size=test_size, random_state=101)
+        return self.X_train, self.X_test, self.y_train, self.y_test
 
     def scale_data(self):
         """

@@ -81,10 +81,9 @@ class ML_Wizard:
         """
         # Check if there are missing values in the dataset.
         if self.df.isnull().sum().sum() > 0:
-            print("\nData is not ready for machine learning process.")
-            print("There are missing values in the data. "
-                  "Please, fill them and rerun the app.")
-            exit()
+            raise ValueError \
+                ("There are missing values in the data. \
+                 Please, fill them and rerun the app.")
 
         # Identify categorical columns in the dataset.
         cat_cols = self.df.select_dtypes(include=['object']).columns
@@ -97,15 +96,11 @@ class ML_Wizard:
                 self.df = pd.get_dummies(self.df, columns=cat_cols, drop_first=True)
                 print("Categorical/string values are now converted.")
             elif convert.lower() == 'no':
-                print("Data is not ready for machine learning process.")
-                print("There are categorical/string values in the data. "
-                      "Convert them and rerun the app.")
-                exit()
+                raise ValueError("Data is not ready for machine learning process. "
+                                "There are categorical/string values in the data. "
+                                "Convert them and rerun the app.")
             else:
-                print("Invalid response. Please enter 'yes' or 'no'.")
-                exit()
-        else:
-            print("Data is ready for machine learning process.")
+                raise ValueError("Invalid response. Please enter 'yes' or 'no'.")
 
     def run_machine_learning(self):
         """

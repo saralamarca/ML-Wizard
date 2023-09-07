@@ -71,7 +71,7 @@ class RegressionCases:
         X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=test_size, random_state=101)
 
         # Return the split datasets as a tuple.
-        return train_test_split(self.X, self.y, test_size=test_size, random_state=101)
+        return X_train, X_test, y_train, y_test
 
     def scale_data(self):
         """
