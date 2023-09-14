@@ -79,11 +79,11 @@ class ClassificationCases:
         # Create a StandardScaler instance
         scaler = StandardScaler()
         # Scale the training data using the scaler
-        scaled_X_train = scaler.fit_transform(self.X_train)
+        self.scaled_X_train = scaler.fit_transform(self.X_train)
         # Transform the test data using the same scaler
-        scaled_X_test = scaler.transform(self.X_test)
+        self.scaled_X_test = scaler.transform(self.X_test)
         # Return a tuple containing scaled training and test data
-        return scaled_X_train, scaled_X_test
+        return self.scaled_X_train, self.scaled_X_test
 
     def train_models(self):
         """
@@ -123,7 +123,7 @@ class ClassificationCases:
             None
         """
         # Define parameter grids for grid search
-        log_param_grid = {'penalty': ['l1', 'l2', 'elasticnet', 'none'],
+        log_param_grid = {'penalty': ['l1', 'l2', 'elasticnet', 'None'],
                           'C': [0.1, 1, 10, 100],
                           'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
                           'max_iter': [100, 1000, 5000]}
@@ -150,6 +150,9 @@ class ClassificationCases:
         self.best_log = self.log_grid.best_params_
         self.best_knn = self.knn_grid.best_params_
         self.best_svc = self.svc_grid.best_params_
+        print(f"Best hyperparameters for Logistic Regression: {self.best_log}\n")
+        print(f"Best hyperparameters for K-Nearest Neighbors: {self.best_knn}\n")
+        print(f"Best hyperparameters for Support Vector Classification : {self.best_svc}\n")
 
     def evaluate_models(self):
         """

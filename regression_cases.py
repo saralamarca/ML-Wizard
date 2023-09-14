@@ -49,6 +49,13 @@ class RegressionCases:
         # Scale the feature data
         self.scaled_X_train, self.scaled_X_test = self.scale_data()
 
+        # Initialize the regression models
+        self.lir_model = LinearRegression()
+        self.lasso_model = Lasso()
+        self.ridge_model = Ridge()
+        self.elastic_model = ElasticNet()
+        self.svr_model = SVR()
+
     def split_data(self):
         """
         Split the dataset into training and testing sets.
@@ -103,13 +110,6 @@ class RegressionCases:
         Returns:
             None
         """
-        # Initialize regression models
-        self.lir_model = LinearRegression()
-        self.lasso_model = Lasso()
-        self.ridge_model = Ridge()
-        self.elastic_model = ElasticNet()
-        self.svr_model = SVR()
-
         # Train each model using the scaled training data
         self.lir_model.fit(self.scaled_X_train, self.y_train)
         self.lasso_model.fit(self.scaled_X_train, self.y_train)
@@ -218,8 +218,8 @@ class RegressionCases:
         print(f"\nBest model with the highest score for your data is: {best_model}")
 
         # Option to save the best model
-        save_model = input("\nDo you want to save the best model? Enter yes or no: ")
-        if save_model.lower() == 'yes':
+        self.save_model = input("\nDo you want to save the best model? Enter yes or no: ")
+        if self.save_model.lower() == 'yes':
             model_name = input("\nEnter what you want to name your model (format example xxx.joblib): ")
             if model_name:
                 if best_model == "Linear Regression":
@@ -235,7 +235,7 @@ class RegressionCases:
                 print(f"Model ({best_model}) saved as {model_name}.")
             else:
                 print("Invalid filename.")
-        elif save_model.lower() == 'no':
+        elif self.save_model.lower() == 'no':
             print("Model not saved.")
         else:
             print("Invalid response. Please enter 'yes' or 'no'")

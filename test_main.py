@@ -1,10 +1,10 @@
-from unittest import TestCase
-import pandas as pd
 import numpy as np
+import pandas as pd
+from unittest import TestCase
+from unittest.mock import patch
 from main import ML_Wizard
 from regression_cases import RegressionCases
 from classification_cases import ClassificationCases
-from unittest.mock import patch
 
 
 class Test_ML_Wizard(TestCase):
