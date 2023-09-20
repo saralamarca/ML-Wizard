@@ -1,15 +1,15 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+from joblib import dump
+from sklearn.linear_model import ElasticNet, Lasso, LinearRegression, Ridge
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet
 from sklearn.svm import SVR
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from joblib import dump
-from regression_cases import RegressionCases
+import seaborn as sns
 from classification_cases import ClassificationCases
+from regression_cases import RegressionCases
 
 
 

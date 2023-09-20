@@ -1,10 +1,11 @@
-import numpy as np
-import pandas as pd
 from unittest import TestCase
 from unittest.mock import patch
-from regression_cases import RegressionCases
-from main import ML_Wizard
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import GridSearchCV
+from main import ML_Wizard
+from regression_cases import RegressionCases
+
 
 
 class TestRegressionCases(TestCase):
@@ -18,11 +19,13 @@ class TestRegressionCases(TestCase):
         self.target_col = 'target'
         self.regression_cases = RegressionCases(self.df, self.target_col)
 
+
     def test_constructor(self):
         # Check if the instance created in setUp is of the correct type and if attributes are correctly initialized
         self.assertTrue(isinstance(self.regression_cases, RegressionCases))
         self.assertEqual(self.regression_cases.df.shape, self.df.shape) # Check if the DataFrame shape matches
         self.assertEqual(self.regression_cases.target_col, self.target_col) # Check if the target column matches
+
 
     def test_split_data(self):
         # Call the split_data method
@@ -33,6 +36,7 @@ class TestRegressionCases(TestCase):
         self.assertIsNotNone(self.regression_cases.X_test)
         self.assertIsNotNone(self.regression_cases.y_train)
         self.assertIsNotNone(self.regression_cases.y_test)
+
 
     def test_scale_data(self):
         self.regression_cases.X_train = self.df[['feature1', 'feature2']]
@@ -49,6 +53,7 @@ class TestRegressionCases(TestCase):
         self.assertTrue(np.allclose(np.std(scaled_X_train, axis=0), np.ones(scaled_X_train.shape[1])))
         self.assertTrue(np.allclose(np.std(scaled_X_test, axis=0), np.ones(scaled_X_test.shape[1])))
 
+
     def test_train_models(self):
         self.regression_cases.train_models()
         self.assertIsNotNone(self.regression_cases.lir_model)
@@ -56,6 +61,7 @@ class TestRegressionCases(TestCase):
         self.assertIsNotNone(self.regression_cases.ridge_model)
         self.assertIsNotNone(self.regression_cases.elastic_model)
         self.assertIsNotNone(self.regression_cases.svr_model)
+
 
     def test_grid_search(self):
         self.regression_cases.grid_search()
@@ -77,6 +83,7 @@ class TestRegressionCases(TestCase):
         self.assertIsNotNone(self.regression_cases.best_ridge)
         self.assertIsNotNone(self.regression_cases.best_elastic)
         self.assertIsNotNone(self.regression_cases.best_svr)
+
 
     def test_evaluate_models(self):
         # Create a controlled dataset for testing

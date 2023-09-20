@@ -1,10 +1,11 @@
-import numpy as np
-import pandas as pd
 from unittest import TestCase
 from unittest.mock import patch
+import numpy as np
+import pandas as pd
 from main import ML_Wizard
 from regression_cases import RegressionCases
 from classification_cases import ClassificationCases
+
 
 
 class Test_ML_Wizard(TestCase):
@@ -15,6 +16,7 @@ class Test_ML_Wizard(TestCase):
         self.assertIsNone(ml_wizard.df)
         self.assertIsNone(ml_wizard.target_col)
 
+
     def test_get_ml_type(self):
         # Test the get_ml_type method
         ml_wizard = ML_Wizard()
@@ -24,6 +26,7 @@ class Test_ML_Wizard(TestCase):
         ml_wizard.ml_type = 'classifier'
         self.assertEqual(ml_wizard.ml_type, 'classifier')
 
+
     def test_read_csv_file(self):
         # Test the read_csv_file method
         ml_wizard = ML_Wizard()
@@ -32,6 +35,7 @@ class Test_ML_Wizard(TestCase):
         # Check if df is not None after reading the file
         self.assertIsNotNone(ml_wizard.df)
 
+
     def test_get_target_column(self):
         # Test the get_target_column method
         ml_wizard = ML_Wizard()
@@ -39,6 +43,7 @@ class Test_ML_Wizard(TestCase):
         # Simulate user input
         ml_wizard.get_target_column()
         self.assertEqual(ml_wizard.target_col, 'target')
+
 
     def test_preprocess_data(self):
         # Test when there are no missing values and no categorical columns
@@ -79,6 +84,7 @@ class Test_ML_Wizard(TestCase):
         expected_error_message_part = "Invalid response. Please enter 'yes' or 'no'."
         actual_error_message = str(context.exception)
         self.assertEqual(expected_error_message_part, actual_error_message)
+
 
     def test_run_machine_learning(self):
         # Test when ml_type is 'regressor'
