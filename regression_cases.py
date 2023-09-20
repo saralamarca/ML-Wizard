@@ -17,10 +17,6 @@ class RegressionCases:
 
     This class provides methods for data preprocessing, model training, hyperparameter tuning,
     model evaluation and model saving.
-
-    Args:
-        df (pd.DataFrame): The input DataFrame containing the dataset.
-        target_col (str): The name of the target column to predict.
     """
     def __init__(self, df, target_col):
         """
