@@ -52,6 +52,7 @@ class RegressionCases:
         self.elastic_model = ElasticNet()
         self.svr_model = SVR()
 
+
     def split_data(self):
         """
         Split the dataset into training and testing sets.
@@ -76,6 +77,7 @@ class RegressionCases:
         # Return the split datasets as a tuple.
         return X_train, X_test, y_train, y_test
 
+
     def scale_data(self):
         """
         Standardize the features by scaling them.
@@ -91,6 +93,7 @@ class RegressionCases:
         scaled_X_test = scaler.transform(self.X_test)
         # Return a tuple containing scaled training and test data
         return scaled_X_train, scaled_X_test
+
 
     def train_models(self):
         """
@@ -112,6 +115,7 @@ class RegressionCases:
         self.ridge_model.fit(self.scaled_X_train, self.y_train)
         self.elastic_model.fit(self.scaled_X_train, self.y_train)
         self.svr_model.fit(self.scaled_X_train, self.y_train)
+
 
     def grid_search(self):
         """
@@ -148,6 +152,7 @@ class RegressionCases:
         self.best_ridge = self.ridge_grid.best_params_
         self.best_elastic = self.elastic_grid.best_params_
         self.best_svr = self.svr_grid.best_params_
+
 
     def evaluate_models(self):
         """

@@ -44,6 +44,7 @@ class ClassificationCases:
             column_name = self.X.columns[0]
             self.X = self.X[column_name].values.reshape(-1, 1)
     
+
     def split_data(self):
         """
         Split the dataset into training and testing sets.
@@ -68,6 +69,7 @@ class ClassificationCases:
         # Return the split datasets as a tuple.
         return self.X_train, self.X_test, self.y_train, self.y_test
 
+
     def scale_data(self):
         """
         Standardize the features by scaling them.
@@ -83,6 +85,7 @@ class ClassificationCases:
         self.scaled_X_test = scaler.transform(self.X_test)
         # Return a tuple containing scaled training and test data
         return self.scaled_X_train, self.scaled_X_test
+
 
     def train_models(self):
         """
@@ -106,6 +109,7 @@ class ClassificationCases:
         self.log_model.fit(self.scaled_X_train, self.y_train)
         self.knn_model.fit(self.scaled_X_train, self.y_train)
         self.svc_model.fit(self.scaled_X_train, self.y_train)
+
 
     def grid_search(self):
         """
@@ -152,6 +156,7 @@ class ClassificationCases:
         print(f"Best hyperparameters for Logistic Regression: {self.best_log}\n")
         print(f"Best hyperparameters for K-Nearest Neighbors: {self.best_knn}\n")
         print(f"Best hyperparameters for Support Vector Classification : {self.best_svc}\n")
+
 
     def evaluate_models(self):
         """

@@ -25,6 +25,7 @@ class ML_Wizard:
         self.df = None # Will store the dataset.
         self.target_col = None # Will store the name of the dependent target column.
 
+
     def get_ml_type(self):
         """
         Prompt the user to select the type of machine learning model (regressor or classifier).
@@ -40,6 +41,7 @@ class ML_Wizard:
                 print("Invalid input.")
             else:
                 break
+
 
     def read_csv_file(self):
         """
@@ -58,6 +60,7 @@ class ML_Wizard:
                 print(f"File not found at {file_name}. "
                       "Please enter a valid file path or name.")
 
+
     def get_target_column(self):
         """
         Prompt the user to enter the name of the dependent target column in the dataset.
@@ -71,6 +74,7 @@ class ML_Wizard:
         if self.target_col not in self.df.columns:
             print("Invalid target column.")
             self.target_col = input("Choose one of the columns in the data: ")
+
 
     def preprocess_data(self):
         """
@@ -101,6 +105,7 @@ class ML_Wizard:
                                 "Convert them and rerun the app.")
             else:
                 raise ValueError("Invalid response. Please enter 'yes' or 'no'.")
+
 
     def run_machine_learning(self):
         """
